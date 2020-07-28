@@ -4,6 +4,8 @@ plugins {
 	id 'java'
 }
 
+ext["h2.version"] = "1.4.199" //h2 데이터베이스 버전 지정
+
 group = 'jpaboock'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
