@@ -16,7 +16,7 @@ public class MemberRepositoryTest {
     MemberRepository memberRepository;
 
     @Test
-    @Transactional
+    @Transactional //선언 시 작업을 하나의 트랜잭션 단위로 묶음
     @Rollback(false)
     public void testMember() throws Exception {
         //given
