@@ -20,4 +20,6 @@ public class Member {
 
     @OneToMany (mappedBy = "member") // 읽기 전용
     private List<Order> orders = new ArrayList<>();
+
+
 }
