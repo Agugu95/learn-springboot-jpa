@@ -36,7 +36,7 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus status; // ORDER, CANCEL
 
-    //==연관관계 메서드==//
+    //==연관 관계 메서드==//
     // 연관 관계 편의를 위해 하나의 메소드로 묶어버림
     public void setMember(Member member) {
         this.member = member;
@@ -68,7 +68,7 @@ public class Order {
     // 주문 취소
     public void cancel() {
         if (delivery.getStatus() == DeliveryStatus.COMP) { // 체크 로직
-            throw new IllegalStateException("이미 배송이 완료된 상품은 취소가 불가능 합니.");
+            throw new IllegalStateException("이미 배송이 완료된 상품은 취소가 불가능 합니다.");
         }
 
         this.setStatus(OrderStatus.CANCEL);
