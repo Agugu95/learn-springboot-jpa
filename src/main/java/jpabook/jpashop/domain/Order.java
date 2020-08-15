@@ -1,7 +1,6 @@
 package jpabook.jpashop.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,12 +12,13 @@ import static javax.persistence.FetchType.*;
 @Entity
 @Table(name = "orders")
 @Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
 
     @Id
     @GeneratedValue
     @Column(name = "order_id")
-    private String id;
+    private Long id;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn (name = "member_id")
