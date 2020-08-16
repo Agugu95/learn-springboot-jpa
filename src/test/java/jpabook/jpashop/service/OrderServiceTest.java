@@ -6,8 +6,8 @@ import jpabook.jpashop.domain.Order;
 import jpabook.jpashop.domain.OrderStatus;
 import jpabook.jpashop.domain.item.Book;
 import jpabook.jpashop.domain.item.Item;
+import jpabook.jpashop.exception.NotEnoughStockException;
 import jpabook.jpashop.repository.OrderRepository;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,16 +36,9 @@ public class OrderServiceTest {
     @Test
     public void 상품주문() throws Exception {
         //given
-        Member member = new Member();
-        member.setUsername("회원 1");
-        member.setAddress(new Address("서울", "강동구", "123-123"));
-        em.persist(member);
+        Member member = createMember();
 
-        Book book = new Book();
-        book.setName("공허한 십자가");
-        book.setPrice(10000);
-        book.setStockQuantity(300);
-        em.persist(book);
+        Book book = createBook("공허한 십자가", 10000, 300);
 
         int orderCount = 2;
         int orderQuantity = 298;
@@ -71,12 +64,35 @@ public class OrderServiceTest {
         //then
     }
 
-    @Test
+    @Test(expected = NotEnoughStockException.class)
     public void 상품주문_재고수량초과() throws Exception {
         //given
+        Member member = createMember();
+        Item item = createBook("공허한 십자가", 10000, 300); // 주문 수량
+
+        int orderCount = 301; // 상품 개수
 
         //when
+        orderService.order(member.getId(), item.getId(), orderCount);
 
         //then
+        fail("재고 수량 부족 예외 발생");
+    }
+
+    private Book createBook(String name, int price, int stockQuantity) {
+        Book book = new Book();
+        book.setName(name);
+        book.setPrice(price);
+        book.setStockQuantity(stockQuantity);
+        em.persist(book);
+        return book;
+    }
+
+    private Member createMember() {
+        Member member = new Member();
+        member.setUsername("회원 1");
+        member.setAddress(new Address("서울", "강동구", "123-123"));
+        em.persist(member);
+        return member;
     }
 }
