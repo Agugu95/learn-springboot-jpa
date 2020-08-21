@@ -13,13 +13,13 @@ public class Member {
     @Id @GeneratedValue
     @Column(name = "member_id")
     private Long id;
-    private String username;
+
+    private String name;
 
     @Embedded // 내장 타입 임베딩
     private Address address;
 
     @OneToMany (mappedBy = "member") // 읽기 전용
     private List<Order> orders = new ArrayList<>();
-
 
 }

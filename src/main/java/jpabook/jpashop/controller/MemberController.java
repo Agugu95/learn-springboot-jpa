@@ -18,24 +18,28 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MemberController {
 
-    private MemberService  memberService; // 컨트롤러가 보통 서비스를 가져다 씀
+    private final MemberService  memberService; // 컨트롤러가 보통 서비스를 가져다 씀
 
     @GetMapping(value = "/members/new") // HTTP GET
     public String createForm(Model model) {
-        model.addAttribute("memberForm", new MemberForm());
+        model.addAttribute("memberForm", new MemberForm()); // view 속성에 form담아 반환
         return "members/createMemberForm";
     }
 
     @PostMapping(value = "/members/new") // HTTP POST, 데이터 삽입
     public String create(@Valid MemberForm form, BindingResult result) {
+
         if (result.hasErrors()) {
             return "members/createMemberForm";
         }
+
         Address address = new Address(form.getCity(), form.getStreet(), form.getZipcode());
         Member member = new Member();
-        member.setUsername(form.getName());
+        member.setName(form.getName());
         member.setAddress(address);
+
         memberService.join(member);
+
         return "redirect:/";
     }
 

@@ -23,13 +23,16 @@ public class MemberService {
     // 회원 가입
     @Transactional // 읽기 전용 아님
     public Long join(Member member) {
+        if (member == null) {
+            throw new IllegalStateException("회원 정보가 null입니다.");
+        }
         validateDuplicateMember(member);
         memberRepository.save(member);
         return member.getId();
     }
 
     private void validateDuplicateMember(Member member) {
-        List<Member> findMembers = memberRepository.findByName(member.getUsername());
+        List<Member> findMembers = memberRepository.findByName(member.getName());
         if (!findMembers.isEmpty()) {
             throw new IllegalStateException("이미 존재 하는 회원");
         }
