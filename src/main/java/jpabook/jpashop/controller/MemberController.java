@@ -22,14 +22,17 @@ public class MemberController {
 
     @GetMapping(value = "/members/new") // HTTP GET
     public String createForm(Model model) {
-        model.addAttribute("memberForm", new MemberForm()); // view 속성에 form담아 반환
+
+        // view 속성에 form 담아 반환(빈 껍떼기), thymeleaf에서 오브젝트로 받을 수 있음
+        model.addAttribute("memberForm", new MemberForm());
+        // 실제 view로 보여질 html, 서버 사이드 렌더링
         return "members/createMemberForm";
     }
 
     @PostMapping(value = "/members/new") // HTTP POST, 데이터 삽입
     public String create(@Valid MemberForm form, BindingResult result) {
-
-        if (result.hasErrors()) {
+        // 에러가 생기면 BindingResult로 에러가 넘어감
+        if (result.hasErrors()) { // result에 에러가 있으면 다시 createMemberForm으 리턴
             return "members/createMemberForm";
         }
 

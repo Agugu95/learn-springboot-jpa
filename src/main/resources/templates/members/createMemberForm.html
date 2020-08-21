@@ -11,8 +11,9 @@
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"></div>
-    <form role="form" action="/members/new" th:object="${memberForm}"
-          method="post"> <!-- 데이터 role은 form, request는 /members/new, 반환 오브젝트는 memberForm(매핑), http 메소드는 post-->
+
+    <!-- 데이터 role은 form, request는 /members/new, 오브젝트는 컨트롤러의 memberForm(매핑), http 메소드는 post-->
+    <form role="form" action="/members/new" th:object="${memberForm}" method="post">
         <div class="form-group">
             <label th:for="name">이름</label>
             <label>
@@ -46,6 +47,7 @@
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+
     <br/>
     <div th:replace="fragments/footer :: footer"></div>
 </div> <!-- /container -->
