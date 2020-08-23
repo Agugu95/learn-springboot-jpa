@@ -47,7 +47,7 @@ public class MemberController {
     }
 
     @GetMapping(value = "/members") // HTTP GET
-    public String list(Model model) {
+    public String list(Model model) { // 정말 심플하기에 엔티티를 그대로 쓴거지만 원래라면 이것도 form을 통해서 처리해야 함
         List<Member> members = memberService.findMembers();
         model.addAttribute("members", members);
         return "members/memberList";
