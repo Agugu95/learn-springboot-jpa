@@ -71,7 +71,7 @@ public class Order {
             throw new IllegalStateException("이미 배송이 완료된 상품은 취소가 불가능 합니다.");
         }
 
-        this.setStatus(OrderStatus.CANCEL);
+        this.setStatus(OrderStatus.CANCEL); // 더티체킹(변경 감지)로 인해 자동으로 수정되는 UpdateQuery
         for (OrderItem orderItem : orderItems) {
             orderItem.cancel();
         }
