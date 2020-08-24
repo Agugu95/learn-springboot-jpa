@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -20,7 +21,7 @@ public class ItemController {
 
     @GetMapping(value = "/items/new")
     public String createForm(Model model) {
-        model.addAttribute("form", new BookForm());
+        model.addAttribute("form", new BookForm()); // html에서 추적이 가능한 건 빈 form을 넘겨줬기 때
         return "items/createItemForm";
     }
 
@@ -61,5 +62,23 @@ public class ItemController {
 
         model.addAttribute("form", form);
         return "items/updateItemForm";
+    }
+
+    @PostMapping(value = "/items/{itemId}/edit")
+    public String updateItem(@PathVariable Long itemId, @ModelAttribute("form") BookForm bookForm) {
+        // 어설픈 엔티티 생성
+//        Book book = new Book();
+//        book.setId(bookForm.getId());
+//        book.setPrice(bookForm.getPrice());
+//        book.setStockQuantity(bookForm.getStockQuantity());
+//        book.setName(bookForm.getName());
+//        book.setAuthor(bookForm.getAuthor());
+//        book.setIsbn(bookForm.getIsbn());
+//
+//        itemService.saveItem(book);
+
+        // 변경 감지 활용
+        itemService.updateItem(itemId, bookForm.getName(), bookForm.getPrice(), bookForm.getStockQuantity());
+        return "redirect:/items";
     }
 }
