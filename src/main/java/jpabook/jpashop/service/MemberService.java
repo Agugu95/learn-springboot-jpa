@@ -1,5 +1,6 @@
 package jpabook.jpashop.service;
 
+import jpabook.jpashop.domain.Address;
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.repository.MemberRepository;
 import lombok.AllArgsConstructor;
@@ -46,5 +47,13 @@ public class MemberService {
     // 회원 단건 조회
     public Member findOne(Long memberId) {
         return memberRepository.findOne(memberId);
+    }
+
+    @Transactional
+    public void update(Long id, String name, Address address) {
+        Member member = memberRepository.findOne(id); // 영속 상태로 만들
+        // 변경 감지
+        member.setName(name);
+        member.setAddress(address);
     }
 }
