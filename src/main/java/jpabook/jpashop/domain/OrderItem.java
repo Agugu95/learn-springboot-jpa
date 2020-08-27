@@ -1,5 +1,6 @@
 package jpabook.jpashop.domain;
 
+import jpabook.jpashop.domain.item.Book;
 import jpabook.jpashop.domain.item.Item;
 import lombok.*;
 
@@ -30,7 +31,7 @@ public class OrderItem {
 
     // == 생성 메소드 == //
     // 실제 주문 시 할인 등에 의해 가격이 변동될 수 있기에 별도의 orderPrice를 둠
-    public static OrderItem createOrder(Item item, int orderPrice, int count) {
+    public static OrderItem createOrderItem(Item item, int orderPrice, int count) {
         OrderItem orderItem = new OrderItem();
         orderItem.setItem(item);
         orderItem.setOrderPrice(orderPrice);

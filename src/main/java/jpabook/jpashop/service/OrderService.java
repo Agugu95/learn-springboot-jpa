@@ -39,7 +39,7 @@ public class OrderService {
         delivery.setAddress(member.getAddress()); // 회원 주소를 배송 주소로 설정
 
         // 주문 상품 설정, 정적 팩토리 메소드, protected로 생성 패턴 보호
-        OrderItem orderItem = OrderItem.createOrder(item, item.getPrice(), count);
+        OrderItem orderItem = OrderItem.createOrderItem(item, item.getPrice(), count);
 
         // 주문 생성, 정적 팩토리 메소드, protected로 생성 패턴 보호
         Order order = Order.createOrder(member, delivery, orderItem);
