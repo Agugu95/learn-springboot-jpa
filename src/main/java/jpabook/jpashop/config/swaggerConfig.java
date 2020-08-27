@@ -29,7 +29,7 @@ public class swaggerConfig {
     private ApiInfo swaggerInfo() {
         return new ApiInfoBuilder()
                 .title("Spring Boot API Document")
-                .description("스프링부트 API 문서 테스")
+                .description("스프링부트 API 문서 테스트")
                 .version("1.0.0")
                 .build();
     }
