@@ -28,7 +28,7 @@ public class OrderApiController {
     private final OrderRepository orderRepository;
     private final OrderQueryRepository orderQueryRepository;
 
-    @GetMapping("/api/v1/orders")
+    @GetMapping("/api/v1/orders") // 쓰지말 것
     public List<Order> ordersV1() {
         List<Order> all = orderRepository.findAllByCriteria(new OrderSearch());
         for (Order order : all) {
@@ -42,7 +42,7 @@ public class OrderApiController {
         return all;
     }
 
-    @GetMapping("/api/v2/orders")
+    @GetMapping("/api/v2/orders") // DTO 사용, N+1
     public List<OrderDto> ordersV2() {
         List<Order> orders = orderRepository.findAllByCriteria(new OrderSearch());
         return orders.stream()
@@ -50,15 +50,15 @@ public class OrderApiController {
                 .collect(toList());
     }
 
-    @GetMapping("/api/v3/orders")
-    public List<OrderDto> ordersV3() {
+    @GetMapping("/api/v3/orders") // DTO 페치조인, 페이징 불가
+   public List<OrderDto> ordersV3() {
         List<Order> orders = orderRepository.findAllWithItem();
         return orders.stream()
                 .map(OrderDto::new)
                 .collect(toList());
     }
 
-    @GetMapping("/api/v3.1/orders")
+    @GetMapping("/api/v3.1/orders") // DTO 페치조인, batch size 페이징
     public List<OrderDto> ordersV3_page(
             @RequestParam(value = "offset", defaultValue = "0") int offset,
             @RequestParam(value = "limit", defaultValue = "100") int limit){
@@ -68,9 +68,14 @@ public class OrderApiController {
                 .collect(toList());
     }
 
-    @GetMapping("/api/v4/orders")
+    @GetMapping("/api/v4/orders") // DTO 직접 생성, N+1
     public List<OrderQueryDto> ordersV4() {
         return orderQueryRepository.findOrderQueryDtos();
+    }
+
+    @GetMapping("/api/v5/orders") // DTO 직접 생성,
+    public List<OrderQueryDto> ordersV5() {
+        return orderQueryRepository.findAllByDtoOptimization();
     }
 
     @Data
