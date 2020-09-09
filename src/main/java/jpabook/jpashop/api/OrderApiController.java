@@ -34,7 +34,7 @@ public class OrderApiController {
     public List<Order> ordersV1() {
         List<Order> all = orderRepository.findAllByCriteria(new OrderSearch());
         for (Order order : all) {
-            order.getMember().getName();
+            order.getMember().getName(); // OSIV : false에 따른 no session 에러 발생
             order.getMember().getAddress();
 
             // 강제 초기화
@@ -80,7 +80,7 @@ public class OrderApiController {
         return orderQueryRepository.findAllByDtoOptimization();
     }
 
-    @GetMapping("api/v6/orders")
+    @GetMapping("api/v6/orders") // API 스펙 쿼리 작성 + 재매핑 --> 추천 안함
     public List<OrderQueryDto> orderV6() {
         List<OrderFlatDto> flats = orderQueryRepository.findAllByDtoFlat();
 
