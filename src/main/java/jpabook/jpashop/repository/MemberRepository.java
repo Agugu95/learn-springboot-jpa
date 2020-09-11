@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository // 어노테이션 등록 시 자동으로 스프링 빈으로 관리
 @RequiredArgsConstructor
-public class MemberRepository {
+public class MemberRepository{
 
     // 의존성 주입 어노테이션
     private final EntityManager em; // 롬복을 통해 생성장 생성

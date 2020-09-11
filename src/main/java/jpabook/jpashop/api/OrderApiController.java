@@ -1,9 +1,7 @@
 package jpabook.jpashop.api;
 
-import jpabook.jpashop.domain.Address;
-import jpabook.jpashop.domain.Order;
-import jpabook.jpashop.domain.OrderItem;
-import jpabook.jpashop.domain.OrderStatus;
+import jpabook.jpashop.domain.*;
+import jpabook.jpashop.repository.MemberRepositoryJpa;
 import jpabook.jpashop.repository.order.OrderRepository;
 import jpabook.jpashop.repository.order.OrderSearch;
 import jpabook.jpashop.repository.order.query.OrderFlatDto;
