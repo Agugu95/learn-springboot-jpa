@@ -31,7 +31,7 @@ public class OrderService {
     public Long order(Long memberId, Long itemId, int count) {
 
         // 아이디를 통한 엔티티 가져오기
-        Member member = memberRepository.findOne(memberId);
+        Member member = memberRepository.findById(memberId).get();
         Item item = itemRepository.findOne(itemId);
 
         // 배송 정보 생성

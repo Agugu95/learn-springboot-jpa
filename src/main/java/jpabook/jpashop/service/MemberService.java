@@ -3,12 +3,9 @@ package jpabook.jpashop.service;
 import jpabook.jpashop.domain.Address;
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.repository.MemberRepository;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 
 import java.util.List;
 
@@ -46,12 +43,12 @@ public class MemberService {
 
     // 회원 단건 조회
     public Member findOne(Long memberId) {
-        return memberRepository.findOne(memberId);
+        return memberRepository.findById(memberId).get();
     }
 
     @Transactional
     public void update(Long id, String name, Address address) {
-        Member member = memberRepository.findOne(id); // 영속 상태로 만들
+        Member member = memberRepository.findById(id).get(); // 영속 상태로 만들
         // 변경 감지
         member.setName(name);
         member.setAddress(address);
